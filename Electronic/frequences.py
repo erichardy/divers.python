@@ -36,21 +36,67 @@ def convertP2F(ui):
         val = val / 1000000000
     f = 1 / val
     fresult = StringVar()
-    if f > 999999.99:
+    if f >= 1000000.0:
         fresult = format(f / 1000000, fFormat)
         fUnitSelects[2].select()
-    elif f > 999.99:
+    elif f >= 1000.0:
         fresult = format(f / 1000, fFormat)
         fUnitSelects[1].select()
     else:
-        fresult = format(f / 1000, fFormat)
+        fresult = format(f, fFormat)
         fUnitSelects[0].select()
     ui['freqPer'] = fresult
     freq.delete(0, 'end')
     freq.insert(0, fresult)
 
 def convertF2P(ui):
-    print('conversion F2P')
+    """
+    Conversion de la fréquence en prériode
+    """
+    freq = ui['freq']
+    f_Unit = ui['f_Unit']
+    fUnitSelects = ui['fUnitSelects']
+    pUnitSelects = ui['pUnitSelects']
+    periode = ui['periode']
+    fFormat = '.6f'
+    str_val = freq.get().replace(',', '.')
+    val = float(str_val)
+    unit = f_Unit.get()
+
+    if unit == 'MHz':
+        val = val * 1000000
+    if unit == 'KHz':
+        val = val * 1000
+    p = 1 / val
+    if p >= 1:
+        presult = format(p, fFormat)
+        pUnitSelects[0].select()
+    elif p >= .001:
+        presult = format(p * 1000, fFormat)
+        pUnitSelects[1].select()
+    elif p >= .000001:
+        presult = format(p * 1000000, fFormat)
+        pUnitSelects[2].select()
+    else:
+        presult = format(p * 1000000000, fFormat)
+        pUnitSelects[3].select()
+    """
+    if p <= .000000001:
+        presult = format(p * 1000000000, fFormat)
+        pUnitSelects[3].select()
+    elif p <= .000001:
+        presult = format(p * 1000000, fFormat)
+        pUnitSelects[2].select()
+    elif p >= 0.001:
+        presult = format(p * 1000, fFormat)
+        pUnitSelects[1].select()
+    else:
+        presult = format(p, fFormat)
+        pUnitSelects[0].select()
+    """
+    periode.delete(0, 'end')
+    periode.insert(0, presult)
+    
 
 def initP2F(ui):
     # ui : user interface, dictionary of interface components
@@ -83,7 +129,7 @@ def initP2F(ui):
         
         if i == 1:
             pUnitSelect.select()
-        pUnitSelects.append(pUnitSelects)
+        pUnitSelects.append(pUnitSelect)
         i += 1
     ui['pUnitSelects'] = pUnitSelects
     ui['p_Unit'] = p_Unit
