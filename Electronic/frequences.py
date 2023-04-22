@@ -10,6 +10,8 @@ mw = Tk()
 mw.title('fréquences <-> périodes')
 mw.config(background='#1E90FF')
 mw.geometry('480x300+100+30')
+_GREEN = '#1E900D'
+GREEN_LIGHT = '#B8FFAD'
 
 def _quitUI():
     sys.exit()
@@ -111,8 +113,8 @@ def initP2F(ui):
     # periode.insert(0, str(65444))
     ui['periode'] = periode
     # ---
-    pUnitsCell = Frame(mw, bg='#1E900D')
-    pUnitsCell.config(bg='#1E900D')
+    pUnitsCell = Frame(mw, bg=GREEN_LIGHT)
+    pUnitsCell.config(bg=GREEN_LIGHT)
     pUnitsCell.grid(row=2, column=3, pady=5)
     p_Units = ["secondes", "mili sec (ms)", "micro sec (us)", "nano sec (ns)"]
     p_UnitsV = ["s", "m", "u", "n"]
@@ -138,13 +140,13 @@ def initP2F(ui):
                      command=partial(convertP2F, ui),
                      background='black', fg='green')
     p2f.grid(column=1, row=3, pady=5, padx=3, columnspan=1)
-    p2f.config(bg='#1E900D', width=15)
+    p2f.config(bg=GREEN_LIGHT, width=15)
     ui['p2f'] = p2f
     f2p = Button(text="frequence -> période",
                      command=partial(convertF2P, ui),
-                     background='black', fg='green')
+                     background='black', fg='black')
     f2p.grid(column=2, row=3, pady=5, padx=3, columnspan=1)
-    f2p.config(bg='#1E900D', width=15)
+    f2p.config(bg=GREEN_LIGHT, width=15)
     ui['f2p'] = f2p
 
     # Frequency
@@ -157,8 +159,8 @@ def initP2F(ui):
     freq.grid(column=2, row=4)
     ui['freqPer'] = freqPer
     ui['freq'] = freq
-    fUnitsCell = Frame(mw, bg='#1E900D')
-    fUnitsCell.config(bg='#1E900D')
+    fUnitsCell = Frame(mw, bg=GREEN_LIGHT)
+    fUnitsCell.config(bg=GREEN_LIGHT)
     fUnitsCell.grid(row=4, column=3, pady=5)
     f_Units = ['Hz', 'KHz', 'MHz']
     ui['f_Units'] = f_Units
